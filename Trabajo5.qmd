@@ -33,6 +33,75 @@ execute:
 ---
 
 \newpage
+# Ejercicio 3
+
+Se requiere definir una clase denominada CálculosNúmericos que realice las siguientes operaciones:
+
+Calcular el logaritmo neperiano recibiendo un valor double como parámetro. Este método debe ser estático. Si el valor no es positivo se genera una excepción aritmética.
+
+Calcular la raíz cuadrada recibiendo un valor double como parámetro. Este método debe ser estático. Si el valor no es positivo se genera una excepción aritmética.
+
+Se debe crear un método main que utilice dichos métodos mediante interfaz gráfica de usuario.
+
+
+![Diagrama de clases](/punto_3/diagrama_de_clases_p3.png){fig-align="center" fig-width="5in"}
+
+![Interfaz usuario](/punto_3/interfaz_de_usuario_p3.png){fig-align="center" fig-width="5in"}
+
+![Diagrama de Usos](/punto_3/diagrama_de_usos_p3.png){fig-align="center" fig-width="5in"}
+
+
+```{python}
+#| eval: false
+import tkinter as tk
+from tkinter import messagebox
+import math
+
+class CalculosNumericos:
+    @staticmethod
+    def calcular_logaritmo_neperiano(valor):
+        if valor <= 0:
+            raise ArithmeticError("El valor debe ser un número positivo para calcular el logaritmo.")
+        return math.log(valor)
+
+    @staticmethod
+    def calcular_raiz_cuadrada(valor):
+        if valor < 0:
+            raise ArithmeticError("El valor debe ser un número positivo para calcular la raíz cuadrada.")
+        return math.sqrt(valor)
+
+# Interfaz gráfica
+def main():
+    def calcular():
+        try:
+            valor = float(entrada.get())
+            resultado_log = CalculosNumericos.calcular_logaritmo_neperiano(valor)
+            resultado_raiz = CalculosNumericos.calcular_raiz_cuadrada(valor)
+            messagebox.showinfo("Resultados", 
+                f"Logaritmo Neperiano: {resultado_log:.4f}\nRaíz Cuadrada: {resultado_raiz:.4f}")
+        except ValueError:
+            messagebox.showerror("Error", "Debe ingresar un valor numérico.")
+        except ArithmeticError as e:
+            messagebox.showerror("Error aritmético", str(e))
+
+    ventana = tk.Tk()
+    ventana.title("Cálculos Numéricos")
+
+    tk.Label(ventana, text="Ingrese un número:").pack(padx=10, pady=5)
+    entrada = tk.Entry(ventana)
+    entrada.pack(padx=10, pady=5)
+
+    boton = tk.Button(ventana, text="Calcular", command=calcular)
+    boton.pack(padx=10, pady=10)
+
+    ventana.mainloop()
+
+if __name__ == "__main__":
+    main()
+
+```
+
+
 # Ejercicio 4
 
 Un equipo de programadores desea participar en una maratón de programación. El equipo tiene los siguientes atributos:
@@ -61,7 +130,7 @@ En un método main se debe crear un equipo solicitando sus datos por teclado y s
 
 ![Interfaz usuario](/Punto_4/interfaz.png){fig-align="center" fig-width="5in"}
 
-![Interfaz usuario](/Punto_4/Diagrama_de_Usos.png){fig-align="center" fig-width="5in"}
+![Diagrama de usos](/Punto_4/Diagrama_de_Usos.png){fig-align="center" fig-width="5in"}
 
 
 ```{python}
